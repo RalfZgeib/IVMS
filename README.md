@@ -27,7 +27,7 @@ This repository contains the code, hardware designs, and documentation for the *
 
 For full experimental details, see the associated publication in *ACS Biomaterials Science & Engineering*:
 
-> **Development of a Low-Cost, Load Cell-Based, In-Situ Viscosity Measurement System for Extrusion-Based Bioprinting**  
+> **Methods for In-Situ Viscosity Measurement and Characterization of Hydrogels During Extrusion-Based Bioprinting**  
 > Ralf Zgeib, Xiao Zhao, Ahmadreza Zaeri, Fucheng Zhang, Kai Cao, Robert Chang  
 > *ACS Biomater. Sci. Eng.*, 2025  
 > [DOI: to be added upon publication]
@@ -62,18 +62,18 @@ For full experimental details, see the associated publication in *ACS Biomateria
 ### Assembly
 
 1. **Print all 3D parts** from the `/hardware/` directory.
-2. **Assemble the extrusion head** according to the instructions in `/docs/AssemblyGuide.md`.
+2. **Assemble the extrusion head** according to the instructions in associated publication.
 3. **Mount the load cell** above the syringe using the provided coupler.
-4. **Connect the load cell** to the signal conditioning electronics (see `/electronics/`).
+4. **Connect the load cell** to the signal conditioning electronics (see Method 2 in associated publication).
 5. **Integrate the extrusion system** with your open-source bioprinter.
 
-For detailed step-by-step instructions and diagrams, see `/docs/AssemblyGuide.md`.
+For detailed step-by-step instructions and diagrams, see associated publication.
 
 ---
 
 ## Software Setup
 
-- **MATLAB** (tested with R2022b and later)
+- **MATLAB** (tested with R2023b and later)
 - Required custom scripts: see `/code/`
 - Load cell calibration and signal acquisition scripts: `/code/calibration/`
 - Data processing and viscosity calculation scripts: `/code/analysis/`
@@ -96,7 +96,7 @@ cd IVMS
 4. **Set extrusion parameters** (flow rate, nozzle geometry) via the bioprinter’s g-code or control software.
 5. **Start the MATLAB acquisition script** to record extrusion force data in real time.
 6. **Perform a print**; force data will be logged automatically.
-7. **Process the data** using `/code/analysis/IVMS_viscosity_calc.m` to obtain shear rate and viscosity profiles.
+7. **Process the data** using the MATLAB codes to obtain shear rate and viscosity profiles.
 
 ---
 
@@ -104,11 +104,9 @@ cd IVMS
 
 - **Force data** is converted to pressure using the known syringe and nozzle geometry.
 - **Shear rate** is calculated based on flow rate and nozzle dimensions.
-- **Rheological corrections** (Bagley, wall-slip, Rabinowitsch) are applied for accurate viscosity estimation.
-- **Viscosity curves** are fitted to the Carreau-Yasuda model for non-Newtonian fluids.
+- **Rheological corrections** (Friction, Bagley, wall-slip, Rabinowitsch) are applied for accurate viscosity estimation.
+- **Viscosity curves** are fitted to the Carreau-Yasuda & Power Law models for non-Newtonian fluids.
 - **Results** can be compared to offline rheometer data for validation.
-
-Sample data and analysis scripts are provided in `/data/` and `/code/analysis/`.
 
 ---
 
@@ -116,17 +114,15 @@ Sample data and analysis scripts are provided in `/data/` and `/code/analysis/`.
 
 The IVMS system was validated using GelMA hydrogels at 5%, 7%, and 10% w/v, and at 25°C, 30°C, and 37°C. IVMS measurements matched rheometer results within acceptable error margins, capturing the expected shear-thinning behavior and temperature/concentration dependencies.
 
-For detailed validation results, see the `Validation` section in the associated publication and `/docs/ValidationReport.pdf`.
+For detailed validation results, see the `Methods 4` section in the associated publication.
 
 ---
 
 ## File Structure
 
 /hardware/ # 3D printable part files (STL, CAD)
-/electronics/ # Circuit diagrams and BOM for load cell signal conditioning
+/code/ # Sample g-code files for single or continuous extrusion feedrates for measurement
 /code/ # MATLAB scripts for calibration, data acquisition, and analysis
-/data/ # Sample raw and processed data files
-/docs/ # Assembly guide, user manual, validation report
 LICENSE
 README.md
 
@@ -135,9 +131,9 @@ README.md
 
 ## Dependencies
 
-- MATLAB (R2022b or later)
+- MATLAB (R2023b or later)
 - Instrument Control Toolbox (for data acquisition)
-- [Optional] Python 3.x for additional data processing (see `/code/python/`)
+- Data acquisition devide (e.g. Arduino)
 - Standard open-source 3D printing and CAD software (e.g., Fusion 360)
 
 ---
@@ -147,7 +143,7 @@ README.md
 If you use IVMS in your research, please cite:
 
 > Zgeib, R., Zhao, X., Zaeri, A., Zhang, F., Cao, K., Chang, R.  
-> Development of a Low-Cost, Load Cell-Based, In-Situ Viscosity Measurement System for Extrusion-Based Bioprinting.  
+> Methods for In-Situ Viscosity Measurement and Characterization of Hydrogels During Extrusion-Based Bioprinting.  
 > *ACS Biomaterials Science & Engineering*, 2025.  
 > [DOI: to be added]
 
@@ -155,7 +151,7 @@ If you use IVMS in your research, please cite:
 
 ## License
 
-This project is released under the MIT License. See `LICENSE` for details.
+This project is released under the GNU v3.0 License. See `LICENSE` for details.
 
 ---
 
@@ -164,6 +160,7 @@ This project is released under the MIT License. See `LICENSE` for details.
 For questions, feedback, or contributions, please contact:
 
 - **Robert Chang** (corresponding author): rchang6@stevens.edu
+- **Ralf Zgeib** (Main/First author): rzgeib@stevens.edu
 - Or open an issue in this repository.
 
 ---
